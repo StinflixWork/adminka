@@ -9,6 +9,7 @@ import { Button, Input } from 'antd'
 import { setUser, useLoginMutation, useRegistrationMutation } from '@entities/Admin'
 import { IAuthForm } from '@entities/Admin/api/types.ts'
 
+import BoatImage from '@shared/assets/images/boat.jpg'
 import { useAppDispatch } from '@shared/libs/hooks/storeHooks.ts'
 
 const initialState: IAuthForm = {
@@ -81,65 +82,56 @@ export const AuthPage = () => {
 	}, [isLoginError, isRegistrationError])
 
 	return (
-		<div className='flex flex-col bg-white px-5 py-8 rounded-xl w-[450px] h-[380px]'>
-			<div className='flex-auto flex flex-col gap-y-3'>
-				<h2 className='text-center text-3xl font-semibold mb-10'>
-					{!showRegister ? 'Login' : 'Register'}
-				</h2>
-				<div className='flex flex-col gap-y-3'>
-					<Input
-						size='large'
-						placeholder='Email'
-						prefix={<MdMailOutline size={24} />}
-						name='email'
-						value={formValue.email}
-						onChange={handleChange}
-					/>
-					<Input.Password
-						size='large'
-						placeholder='Password'
-						prefix={<RiLockPasswordLine size={24} />}
-						name='password'
-						value={formValue.password}
-						onChange={handleChange}
-					/>
-				</div>
-				<div className='self-center'>
-					{!showRegister ? (
-						<Button type='primary' size='large' onClick={handleLogin}>
-							Login
-						</Button>
-					) : (
-						<Button type='primary' size='large' onClick={handleRegister}>
-							Register
-						</Button>
-					)}
-				</div>
+		<div className='flex bg-white rounded-xl shadow-xl'>
+			<div className='h-screen flex-auto'>
+				<img src={BoatImage} alt='Boat' className='w-full h-full object-cover object-center' />
 			</div>
-			<div className='text-center'>
-				<h5 className='inline-flex gap-x-2 font-semibold mt-3'>
-					{!showRegister ? (
-						<>
-							Don't have an account?
-							<p
-								onClick={() => setShowRegister(!showRegister)}
-								className='font-normal cursor-pointer text-blue-600 hover:underline'
-							>
-								Sign Up
-							</p>
-						</>
-					) : (
-						<>
-							Already have an account?
-							<p
-								onClick={() => setShowRegister(!showRegister)}
-								className='font-normal cursor-pointer text-blue-600 hover:underline'
-							>
-								Sign In
-							</p>
-						</>
-					)}
-				</h5>
+			<div className='flex flex-col w-[450px] px-5 py-8'>
+				<div className='flex-auto flex flex-col gap-y-3'>
+					<h2 className='text-center text-3xl font-semibold mb-10'>
+						{!showRegister ? 'Login' : 'Register'}
+					</h2>
+					<div className='flex flex-col gap-y-3'>
+						<Input
+							size='large'
+							placeholder='Email'
+							prefix={<MdMailOutline size={24} />}
+							name='email'
+							value={formValue.email}
+							onChange={handleChange}
+						/>
+						<Input.Password
+							size='large'
+							placeholder='Password'
+							prefix={<RiLockPasswordLine size={24} />}
+							name='password'
+							value={formValue.password}
+							onChange={handleChange}
+						/>
+					</div>
+					<div className='self-center'>
+						{!showRegister ? (
+							<Button type='primary' size='large' onClick={handleLogin}>
+								Login
+							</Button>
+						) : (
+							<Button type='primary' size='large' onClick={handleRegister}>
+								Register
+							</Button>
+						)}
+					</div>
+				</div>
+				<div className='text-center'>
+					<h5 className='inline-flex gap-x-2 font-semibold mt-3'>
+						{!showRegister ? "Don't have an account?" : 'Already have an account?'}
+						<span
+							onClick={() => setShowRegister(!showRegister)}
+							className='font-normal cursor-pointer text-blue-600 hover:underline'
+						>
+							{!showRegister ? 'Sign Up' : 'Sign In'}
+						</span>
+					</h5>
+				</div>
 			</div>
 		</div>
 	)

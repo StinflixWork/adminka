@@ -1,1 +1,1 @@
-export { PrivateRoute } from './ui/privateRoute.tsx'
+export { RootRouter } from './ui/rootRouter.tsx'

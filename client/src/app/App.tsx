@@ -1,30 +1,34 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { RootRouter } from '@app/router'
 
-import { PrivateRoute } from '@app/router'
-
-import { AuthPage } from '@pages/AuthPage'
-import { DashboardPage } from '@pages/DashboardPage'
+import { BasicLayout } from '@widgets/Layouts'
+import { MainLayout } from '@widgets/Layouts/MainLayout'
 
 import { useAuth } from '@entities/Admin/lib/useAuth.ts'
 
 import { Loader } from '@shared/ui/Loader'
 
 export const App = () => {
-	const { loading, isLoading } = useAuth()
+	const { loading, isLoading, isAuth } = useAuth()
 
 	if (loading || isLoading) {
-		return <Loader />
+		return (
+			<div className='h-full grid place-items-center bg-primary-bg'>
+				<Loader />
+			</div>
+		)
+	}
+
+	if (!isAuth) {
+		return (
+			<BasicLayout>
+				<RootRouter />
+			</BasicLayout>
+		)
 	}
 
 	return (
-		<div className='h-screen grid place-items-center bg-gray-300'>
-			<Routes>
-				<Route path='/' element={<Navigate to='/dashboard' replace />} />
-				<Route path='/auth' element={<AuthPage />} />
-				<Route element={<PrivateRoute />}>
-					<Route path='/dashboard' element={<DashboardPage />} />
-				</Route>
-			</Routes>
-		</div>
+		<MainLayout>
+			<RootRouter />
+		</MainLayout>
 	)
 }

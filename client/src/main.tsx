@@ -8,6 +8,7 @@ import { App } from '@app/App.tsx'
 
 import { store } from '@shared/config/storeConfig'
 
+import './app/styles/global.css'
 import './app/styles/reset.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

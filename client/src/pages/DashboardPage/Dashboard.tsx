@@ -20,16 +20,18 @@ export const DashboardPage = () => {
 	}
 
 	return (
-		<div className='flex flex-col bg-white px-5 py-8 rounded-xl w-[450px] h-[380px]'>
-			<div className='flex-auto flex flex-col gap-y-3 text-center'>
-				<h1 className='text-3xl font-semibold'>Welcome to Dashboard</h1>
-				<h3 className='text-xl'>Email: {user?.email}</h3>
+		<section className='h-full grid place-items-center'>
+			<div className='flex flex-col px-5 py-8 rounded-xl w-[450px] h-[380px] shadow-xl border border-solid border-gray-100'>
+				<div className='flex-auto flex flex-col gap-y-3 text-center'>
+					<h1 className='text-3xl font-semibold'>Welcome to Dashboard</h1>
+					<h3 className='text-xl'>Email: {user?.email}</h3>
+				</div>
+				<div className='flex justify-center'>
+					<Button type='primary' danger onClick={handleLogout}>
+						Logout
+					</Button>
+				</div>
 			</div>
-			<div className='flex justify-center'>
-				<Button type='primary' danger onClick={handleLogout}>
-					Logout
-				</Button>
-			</div>
-		</div>
+		</section>
 	)
 }

@@ -1,0 +1,23 @@
+.item {
+  @apply w-full py-2 px-4 rounded inline-flex items-center gap-x-2 text-dark hover:bg-purple hover:text-white transition-colors;
+
+  svg {
+    @apply w-6 h-6 fill-dark transition-colors;
+  }
+
+  &:hover svg {
+    @apply fill-white;
+  }
+
+  span {
+    @apply font-medium;
+  }
+}
+
+.active {
+  @apply bg-purple text-white;
+
+  svg {
+    @apply fill-white;;
+  }
+}
