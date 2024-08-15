@@ -82,7 +82,7 @@ export const AuthPage = () => {
 	}, [isLoginError, isRegistrationError])
 
 	return (
-		<div className='flex bg-white rounded-xl shadow-xl'>
+		<section className='flex bg-white rounded-xl shadow-xl'>
 			<div className='h-screen flex-auto'>
 				<img src={BoatImage} alt='Boat' className='w-full h-full object-cover object-center' />
 			</div>
@@ -133,6 +133,6 @@ export const AuthPage = () => {
 					</h5>
 				</div>
 			</div>
-		</div>
+		</section>
 	)
 }
