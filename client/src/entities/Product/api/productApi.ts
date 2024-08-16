@@ -20,7 +20,7 @@ const productApi = api.injectEndpoints({
 			}),
 			invalidatesTags: [GET_PRODUCTS]
 		}),
-		editProduct: build.mutation<{ message: string }, any>({
+		editProduct: build.mutation<{ message: string }, { id: string; product: ProductResource }>({
 			query: ({ id, product }) => ({
 				url: `api/products/${id}`,
 				method: 'PUT',
