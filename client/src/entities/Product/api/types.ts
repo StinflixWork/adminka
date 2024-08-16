@@ -6,5 +6,5 @@ export interface ProductResource {
 }
 
 export interface ProductResponse extends ProductResource {
-	_id: number
+	_id: string
 }
