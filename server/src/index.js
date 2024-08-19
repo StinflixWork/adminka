@@ -1,30 +1,41 @@
-require('dotenv').config()
-const express = require('express');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const mongoose = require('mongoose');
+import dotenv from 'dotenv'
+import express from 'express'
+import cors from 'cors'
+import cookieParser from 'cookie-parser'
+import mongoose from 'mongoose'
+import helmet from 'helmet'
+import compression from 'compression'
 
-const router = require('./router/index');
-const errorMiddleware = require('./middlewares/error-middleware');
+import router from './router/index.js'
+import { errorMiddleware } from './middlewares/error-middleware.js'
 
-const PORT = process.env.DEV_PORT || 5000;
+dotenv.config()
+const PORT = process.env.DEV_PORT || 5000
 const DB_URL = process.env.DB_URL
 
-const app = express();
+const app = express()
 
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors())
+app.use(cors({
+	credentials: true,
+	origin: process.env.CLIENT_URL
+}))
+app.use(helmet())
+app.use(compression())
 app.use('/api', router)
 app.use(errorMiddleware)
 
+app.all('*', (req, res) => {
+	res.status(404).json({ message: 'Not Found' })
+})
+
 const start = async () => {
-    try {
-        await mongoose.connect(DB_URL);
-        app.listen(PORT, () => console.log('Server started on port:', PORT));
-    } catch (e) {
-        console.error('@start server:', e);
-    }
+	app.listen(PORT, () => console.log('Server started on port:', PORT))
 }
 
-start()
+start().then(async () => {
+	await mongoose.connect(DB_URL)
+}).catch(async (err) => {
+	console.error(err)
+})

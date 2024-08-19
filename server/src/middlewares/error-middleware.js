@@ -1,6 +1,6 @@
-const ApiError = require('../exceptions/api-error');
+import { ApiError } from '../exceptions/api-error.js'
 
-module.exports = function(err, req, res, next) {
+export const errorMiddleware = async (err, req, res, next) => {
     console.log('@error middleware', err)
 
     if (err instanceof ApiError) {

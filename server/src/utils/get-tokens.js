@@ -1,11 +1,12 @@
-const UserDto = require("../dtos/user-dto");
-const tokenService = require("../services/token-service");
+import { UserDTO } from "../dtos/user-dto.js"
+import TokenService from "../services/token-service.js"
 
-module.exports = async function(user) {
-    const userDto = new UserDto(user)
-    const tokens = tokenService.generateTokens({...userDto})
+export const getTokens = async (user) => {
+    const userDto = new UserDTO(user)
+    const tokens = TokenService.generateTokens({...userDto})
 
-    await tokenService.saveToken(userDto.id, tokens.refreshToken)
+    await TokenService.saveToken(userDto.id, tokens.refreshToken)
 
     return {...tokens, user: userDto}
 }
+

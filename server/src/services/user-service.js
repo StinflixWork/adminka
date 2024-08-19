@@ -1,80 +1,81 @@
-const bcrypt = require('bcrypt');
-const uuid = require('uuid');
+import bcrypt from 'bcrypt'
+import * as uuid from 'uuid'
 
-const UserModel = require('../models/user-model');
+import UserModel from '../models/user-model.js'
 
-const ApiError = require('../exceptions/api-error');
-const getTokens = require('../utils/get-tokens')
+import { ApiError } from '../exceptions/api-error.js'
+import { getTokens } from '../utils/get-tokens.js'
 
-const mailService = require('./mail-service');
-const tokenService = require('./token-service');
+import MailService from './mail-service.js'
+import TokenService from './token-service.js'
 
 
 class UserService {
-    async registration(email, password) {
-        const candidate = await UserModel.findOne({email})
-        if (candidate) {
-            throw ApiError.BadRequest('Пользователь с таким почтовым адресом уже существует.')
-        }
+	async registration(email, password) {
+		const candidate = await UserModel.findOne({ email })
+		if (candidate) {
+			throw ApiError.BadRequest('Користувач з такою поштовою адресою вже існує.')
+		}
 
-        const hashedPassword = await bcrypt.hash(password, 5);
-        const activationLink = uuid.v4();
+		const hashedPassword = await bcrypt.hash(password, 5)
+		const activationLink = uuid.v4()
 
 
-        const user = await UserModel.create({email, password: hashedPassword, activationLink})
-        await mailService.sendMailActivation(email, `${process.env.API_URL}api/activate/${activationLink}`)
+		const user = await UserModel.create({ email, password: hashedPassword, activationLink })
+		await MailService.sendMailActivation(email, `${process.env.API_URL}api/activate/${activationLink}`)
 
-        return getTokens(user)
-    }
+		return getTokens(user)
+	}
 
-    async login(email, password) {
-        const user = await UserModel.findOne({email})
-        if (!user) {
-            throw ApiError.BadRequest('Користувача з таким email не знайдено')
-        }
+	async login(email, password) {
+		const user = await UserModel.findOne({ email })
+		if (!user) {
+			throw ApiError.BadRequest('Користувача з таким email не знайдено')
+		}
 
-        const isPassEquals = await bcrypt.compare(password, user.password)
-        if (!isPassEquals) {
-            throw ApiError.BadRequest('Невірний пароль')
-        }
+		const isPassEquals = await bcrypt.compare(password, user.password)
+		if (!isPassEquals) {
+			throw ApiError.BadRequest('Невірний пароль')
+		}
 
-        return getTokens(user)
-    }
+		return getTokens(user)
+	}
 
-    async logout(refreshToken) {
-        return await tokenService.removeToken(refreshToken);
-    }
+	async logout(refreshToken) {
+		return await TokenService.removeToken(refreshToken)
+	}
 
-    async activate(activationLink) {
-        const user = await UserModel.findOne({activationLink})
+	async activate(activationLink) {
+		const user = await UserModel.findOne({ activationLink })
 
-        if (!user) {
-            throw ApiError.BadRequest('Некоректне посилання активації')
-        }
+		if (!user) {
+			throw ApiError.BadRequest('Некоректне посилання активації')
+		}
 
-        user.isActivated = true
-        user.save()
-    }
+		user.isActivated = true
+		user.save()
+	}
 
-    async refresh(refreshToken) {
-        if (!refreshToken) {
-            throw ApiError.UnauthorizedError()
-        }
+	async refresh(refreshToken) {
+		if (!refreshToken) {
+			throw ApiError.UnauthorizedError()
+		}
 
-        const userData = tokenService.validateRefreshToken(refreshToken)
-        const tokenFromDb = await tokenService.findToken(refreshToken)
+		const userData = TokenService.validateRefreshToken(refreshToken)
+		const tokenFromDb = await TokenService.findToken(refreshToken)
 
-        if (!userData || !tokenFromDb) {
-            throw ApiError.UnauthorizedError()
-        }
+		if (!userData || !tokenFromDb) {
+			throw ApiError.UnauthorizedError()
+		}
 
-        const user = await UserModel.findById(userData.id)
-        return getTokens(user)
-    }
+		const user = await UserModel.findById(userData.id)
+		return getTokens(user)
+	}
 
-    async getAllUsers() {
-        return await UserModel.find({})
-    }
+	async getAllUsers() {
+		const users = await UserModel.find({})
+		return users
+	}
 }
 
-module.exports = new UserService();
+export default new UserService()
