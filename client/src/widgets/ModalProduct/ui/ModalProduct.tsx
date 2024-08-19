@@ -37,6 +37,7 @@ export const ModalProduct = (props: ModalProductProps) => {
 	const onSubmit: SubmitHandler<ProductResource> = data => {
 		handleSubmitValues(data)
 		handleClose()
+		reset()
 	}
 
 	return (

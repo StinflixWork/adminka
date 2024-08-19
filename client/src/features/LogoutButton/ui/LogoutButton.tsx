@@ -6,6 +6,7 @@ import { Button } from 'antd'
 import { removeUser, useLogoutMutation } from '@entities/Admin'
 
 import { useAppDispatch } from '@shared/libs/hooks/storeHooks.ts'
+import { LocalStorageService } from '@shared/services/localStorage.service.ts'
 
 export const LogoutButton = () => {
 	const [logout] = useLogoutMutation()
@@ -15,7 +16,7 @@ export const LogoutButton = () => {
 	const handleLogout = async () => {
 		await logout()
 		dispatch(removeUser())
-		localStorage.removeItem('token')
+		LocalStorageService.clearAccessToken()
 		navigate('/auth')
 	}
 

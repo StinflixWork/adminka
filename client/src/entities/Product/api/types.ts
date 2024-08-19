@@ -3,6 +3,7 @@ export interface ProductResource {
 	description: string
 	price: number
 	image: string
+	isFavourite?: boolean
 }
 
 export interface ProductResponse extends ProductResource {

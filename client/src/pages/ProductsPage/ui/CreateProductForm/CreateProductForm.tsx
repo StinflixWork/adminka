@@ -15,9 +15,7 @@ export const CreateProductForm = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false)
 
 	const handleModalOpen = () => setIsModalOpen(true)
-
 	const handleModalClose = () => setIsModalOpen(false)
-
 	const onSubmit = async (data: ProductResource) => await createProduct(data)
 
 	useEffect(() => {

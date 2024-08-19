@@ -11,6 +11,7 @@ import { IAuthForm } from '@entities/Admin/api/types.ts'
 
 import BoatImage from '@shared/assets/images/boat.jpg'
 import { useAppDispatch } from '@shared/libs/hooks/storeHooks.ts'
+import { LocalStorageService } from '@shared/services/localStorage.service.ts'
 
 const initialState: IAuthForm = {
 	email: '',
@@ -63,14 +64,14 @@ export const AuthPage = () => {
 		if (isLoginSuccess) {
 			toast.success('Login successfully')
 			dispatch(setUser({ user: loginData.user, isAuth: true }))
-			localStorage.setItem('token', loginData.accessToken)
+			LocalStorageService.setAccessToken(loginData.accessToken)
 			navigate('/dashboard')
 		}
 
 		if (isRegistrationSuccess) {
 			toast.success('Registration successfully')
 			dispatch(setUser({ user: registrationData.user, isAuth: true }))
-			localStorage.setItem('token', registrationData.accessToken)
+			LocalStorageService.setAccessToken(registrationData.accessToken)
 			navigate('/dashboard')
 		}
 	}, [isLoginSuccess, isRegistrationSuccess])

@@ -31,6 +31,13 @@ const productApi = api.injectEndpoints({
 		getListProducts: build.query<ProductResponse[], void>({
 			query: () => 'api/products',
 			providesTags: [GET_PRODUCTS]
+		}),
+		toggleFavourites: build.mutation<void, string>({
+			query: id => ({
+				url: `api/products/${id}`,
+				method: 'PATCH'
+			}),
+			invalidatesTags: [GET_PRODUCTS]
 		})
 	})
 })
@@ -39,5 +46,6 @@ export const {
 	useGetListProductsQuery,
 	useCreateProductMutation,
 	useDeleteProductMutation,
-	useEditProductMutation
+	useEditProductMutation,
+	useToggleFavouritesMutation
 } = productApi

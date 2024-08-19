@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { selectAuth, setUser, useRefreshQuery } from '@entities/Admin'
 
 import { useAppDispatch, useAppSelector } from '@shared/libs/hooks/storeHooks.ts'
+import { LocalStorageService } from '@shared/services/localStorage.service.ts'
 
 export const useAuth = () => {
 	const { data: refreshData, isSuccess, isLoading } = useRefreshQuery()
@@ -11,10 +12,10 @@ export const useAuth = () => {
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
-		const token = localStorage.getItem('token')
+		const token = LocalStorageService.getAccessToken()
 		if (token) {
 			if (isSuccess) {
-				localStorage.setItem('token', refreshData.accessToken)
+				LocalStorageService.setAccessToken(refreshData.accessToken)
 				dispatch(setUser({ user: refreshData.user, isAuth: true }))
 				setLoading(false)
 			}
@@ -24,7 +25,7 @@ export const useAuth = () => {
 	}, [refreshData, isSuccess, dispatch])
 
 	useEffect(() => {
-		if (!isLoading && !localStorage.getItem('token')) {
+		if (!isLoading && !LocalStorageService.getAccessToken()) {
 			setLoading(false)
 		}
 	}, [isLoading])
