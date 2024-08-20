@@ -35,7 +35,7 @@ class ProductService {
 	async toggleFavourite(id) {
 		const product = await ProductModel.findOne({_id: id})
 		product.isFavourite = !product.isFavourite
-		product.save()
+		await product.save()
 
 		return product
 	}

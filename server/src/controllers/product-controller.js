@@ -40,7 +40,7 @@ class ProductController {
 		try {
 			const products = await ProductService.getListProducts();
 
-			res.json(products)
+			return res.json(products)
 		} catch (e) {
 			next(e)
 		}
@@ -51,7 +51,7 @@ class ProductController {
 			const id = req.params.id;
 			const product = await ProductService.getProduct(id);
 
-			res.json(product)
+			return res.json(product)
 		} catch (e) {
 			next(e)
 		}
@@ -63,7 +63,7 @@ class ProductController {
 			const id = req.params.id;
 			await ProductService.toggleFavourite(id);
 
-			res.status(201)
+			return res.json({message: 'Поле успішно змінено'})
 		} catch (e) {
 			next(e)
 		}
