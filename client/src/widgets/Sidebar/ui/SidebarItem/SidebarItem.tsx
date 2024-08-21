@@ -16,8 +16,8 @@ export const SidebarItem = (props: SidebarItemProps) => {
 
 	return (
 		<NavLink to={href} className={({ isActive }) => cl(styles.item, isActive && styles.active)}>
-			{icon}
-			<span>{label}</span>
+			<div className='dark:text-blue-500'>{icon}</div>
+			<span className='dark:text-blue-500'>{label}</span>
 		</NavLink>
 	)
 }

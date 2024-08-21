@@ -42,7 +42,7 @@ export const ModalProduct = (props: ModalProductProps) => {
 
 	return (
 		<Modal open={isOpen} onCancel={handleModalClose} footer={null} style={{ top: 50 }}>
-			<form onSubmit={handleSubmit(onSubmit)} className='flex flex-col '>
+			<form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>
 				<h2 className='text-xl mb-5'>Створити новий продукт</h2>
 				<div className='flex flex-col gap-y-3'>
 					<div className='flex flex-col gap-y-1'>

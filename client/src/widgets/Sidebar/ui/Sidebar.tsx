@@ -7,7 +7,7 @@ import { SidebarItem } from './SidebarItem/SidebarItem.tsx'
 
 export const Sidebar = () => {
 	return (
-		<aside className='basis-1/6 bg-white flex flex-col shadow-medium'>
+		<aside className='basis-1/6 bg-white flex flex-col shadow-medium dark:bg-neutral-900'>
 			<div className='h-[80px] px-2 py-4'>
 				<Logo />
 			</div>

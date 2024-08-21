@@ -45,7 +45,7 @@ export const ProductListItem = ({ product }: ProductProps) => {
 	}, [isSuccess])
 
 	return (
-		<article className='w-[350px] h-[480px] rounded-xl overflow-hidden flex flex-col gap-y-3 shadow-xl'>
+		<article className='w-[350px] h-[480px] rounded-xl overflow-hidden flex flex-col gap-y-3 shadow-xl bg-white dark:bg-neutral-900'>
 			<ModalProduct
 				handleSubmitValues={handleEdit}
 				handleClose={handleModalClose}
@@ -57,7 +57,7 @@ export const ProductListItem = ({ product }: ProductProps) => {
 				<img src={image} alt='Product' className='w-full h-full object-cover' />
 			</div>
 			<div className='flex-auto flex flex-col px-4 pb-8'>
-				<div className='flex-auto text-dark'>
+				<div className='flex-auto text-dark dark:text-neutral-300'>
 					<h2 className='text-2xl font-semibold'>{title}</h2>
 					<p className='text-xl text-ellipsis line-clamp-4 mt-2'>{description}</p>
 					<p className='text-green-600 font-medium mt-3'>{price}$</p>

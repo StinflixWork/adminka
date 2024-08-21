@@ -1,3 +1,4 @@
+import { ThemeProvider } from '@app/providers/themeProvider'
 import { RootRouter } from '@app/router'
 
 import { BasicLayout } from '@widgets/Layouts'
@@ -27,8 +28,10 @@ export const App = () => {
 	}
 
 	return (
-		<MainLayout>
-			<RootRouter />
-		</MainLayout>
+		<ThemeProvider>
+			<MainLayout>
+				<RootRouter />
+			</MainLayout>
+		</ThemeProvider>
 	)
 }
