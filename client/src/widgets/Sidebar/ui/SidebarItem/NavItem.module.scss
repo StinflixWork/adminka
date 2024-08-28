@@ -1,38 +1,11 @@
 .item {
-  @apply w-full inline-flex items-center gap-x-2 py-2 px-4 rounded text-dark-blue;
-  transition: background-color .2s ease-in-out;
-
-  svg {
-    @apply w-6 h-6 fill-current;
-    transition: color .2s ease-in-out;
-  }
-
-  span {
-    @apply font-medium;
-    transition: color .2s ease-in-out;
-  }
+  @apply grid gap-x-2 p-4 items-center grid-cols-[1fr,6fr];
 
   &:hover {
-    @apply bg-blue-800;
-  }
-
-  &:hover svg {
-    @apply fill-white;
-  }
-
-  &:hover span {
-    @apply text-white;
+    @apply bg-neutral-200 transition-colors duration-300 ease-in-out;
   }
 }
 
 .active {
-  @apply bg-blue-800 text-white;
-
-  svg {
-    @apply fill-white;
-  }
-
-  span {
-    @apply text-white;
-  }
+  @apply bg-neutral-200;
 }

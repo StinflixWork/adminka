@@ -1,23 +1,24 @@
-import { ReactNode } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import cl from 'classnames'
 
+import { useAppSelector } from '@shared/libs/hooks/storeHooks.ts'
+
+import { IMenu } from '../../consts/menu.data.ts'
 import styles from './NavItem.module.scss'
 
 interface SidebarItemProps {
-	label: string
-	href: string
-	icon?: ReactNode
+	item: IMenu
 }
 
-export const SidebarItem = (props: SidebarItemProps) => {
-	const { label, href, icon } = props
+export const SidebarItem = ({ item }: SidebarItemProps) => {
+	const { label, link } = item
+	const { isCollapsed } = useAppSelector(state => state.sidebar)
 
 	return (
-		<NavLink to={href} className={({ isActive }) => cl(styles.item, isActive && styles.active)}>
-			<div className='dark:text-blue-500'>{icon}</div>
-			<span className='dark:text-blue-500'>{label}</span>
+		<NavLink to={link} className={({ isActive }) => cl(styles.item, isActive && styles.active)}>
+			<item.icon />
+			{!isCollapsed && <span>{label}</span>}
 		</NavLink>
 	)
 }
