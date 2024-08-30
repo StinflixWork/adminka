@@ -1,10 +1,9 @@
 import { ChangeEvent, useEffect, useState } from 'react'
-import { MdMailOutline } from 'react-icons/md'
-import { RiLockPasswordLine } from 'react-icons/ri'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { Button, Input } from 'antd'
+import { Mail, RectangleEllipsis } from 'lucide-react'
 
 import { setUser, useLoginMutation, useRegistrationMutation } from '@entities/Admin'
 import { IAuthForm } from '@entities/Admin/api/types.ts'
@@ -96,7 +95,7 @@ export const AuthPage = () => {
 						<Input
 							size='large'
 							placeholder='Email'
-							prefix={<MdMailOutline size={24} />}
+							prefix={<Mail />}
 							name='email'
 							value={formValue.email}
 							onChange={handleChange}
@@ -104,7 +103,7 @@ export const AuthPage = () => {
 						<Input.Password
 							size='large'
 							placeholder='Password'
-							prefix={<RiLockPasswordLine size={24} />}
+							prefix={<RectangleEllipsis />}
 							name='password'
 							value={formValue.password}
 							onChange={handleChange}

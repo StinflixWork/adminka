@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 
 import cl from 'classnames'
@@ -12,8 +13,11 @@ interface SidebarItemProps {
 }
 
 export const SidebarItem = ({ item }: SidebarItemProps) => {
-	const { label, link } = item
+	const { langKey, link } = item
+	const { t } = useTranslation()
 	const { isCollapsed } = useAppSelector(state => state.sidebar)
+
+	const label = t(`menu.${langKey}`)
 
 	return (
 		<NavLink to={link} className={({ isActive }) => cl(styles.item, isActive && styles.active)}>

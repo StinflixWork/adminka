@@ -10,6 +10,7 @@ import { store } from '@shared/config/storeConfig'
 
 import './app/styles/global.css'
 import './app/styles/reset.css'
+import './shared/libs/utils/i18n'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<Provider store={store}>

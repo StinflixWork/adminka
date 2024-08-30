@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { Button } from 'antd'
@@ -16,6 +17,7 @@ export const Sidebar = () => {
 	const { isCollapsed } = useAppSelector(state => state.sidebar)
 	const dispatch = useAppDispatch()
 	const navigation = useNavigate()
+	const { t } = useTranslation()
 
 	const toggleSidebar = () => dispatch(toggleCollapsed())
 	const handleLogout = () => navigation('/logout')
@@ -43,7 +45,7 @@ export const Sidebar = () => {
 			</nav>
 			<div className='flex flex-col items-center justify-center gap-y-2'>
 				<Button danger icon={<LogOut size={18} />} iconPosition='end' onClick={handleLogout}>
-					{isCollapsed || 'Вийти з акаунту'}
+					{isCollapsed || t('buttons.logout')}
 				</Button>
 			</div>
 		</m.aside>

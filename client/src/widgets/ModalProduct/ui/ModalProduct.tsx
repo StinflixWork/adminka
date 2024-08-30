@@ -1,4 +1,5 @@
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Input, InputNumber, Modal } from 'antd'
@@ -13,11 +14,12 @@ interface ModalProductProps {
 	handleSubmitValues: (product: ProductResource) => void
 	handleClose: () => void
 	isOpen: boolean
-	labelBtn: string
+	labelButton?: string
 }
 
 export const ModalProduct = (props: ModalProductProps) => {
-	const { initialValues, handleSubmitValues, isOpen, handleClose, labelBtn } = props
+	const { initialValues, handleSubmitValues, isOpen, handleClose, labelButton } = props
+	const { t } = useTranslation()
 
 	const {
 		control,
@@ -43,10 +45,10 @@ export const ModalProduct = (props: ModalProductProps) => {
 	return (
 		<Modal open={isOpen} onCancel={handleModalClose} footer={null} style={{ top: 50 }}>
 			<form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>
-				<h2 className='text-xl mb-5'>Створити новий продукт</h2>
+				<h2 className='text-xl mb-5'>{t('forms.createProduct.labelForm')}</h2>
 				<div className='flex flex-col gap-y-3'>
 					<div className='flex flex-col gap-y-1'>
-						<span>Назва товару</span>
+						<span>{t('forms.createProduct.fields.name')}</span>
 						<Controller
 							name='title'
 							control={control}
@@ -55,7 +57,7 @@ export const ModalProduct = (props: ModalProductProps) => {
 						<p>{errors.title?.message}</p>
 					</div>
 					<div className='flex flex-col gap-y-1'>
-						<span>Опис</span>
+						<span>{t('forms.createProduct.fields.description')}</span>
 						<Controller
 							name='description'
 							control={control}
@@ -64,7 +66,7 @@ export const ModalProduct = (props: ModalProductProps) => {
 						<p>{errors.description?.message}</p>
 					</div>
 					<div className='flex flex-col gap-y-1'>
-						<span>Ціна</span>
+						<span>{t('forms.createProduct.fields.price')}</span>
 						<Controller
 							name='price'
 							control={control}
@@ -80,7 +82,7 @@ export const ModalProduct = (props: ModalProductProps) => {
 						<p>{errors.price?.message}</p>
 					</div>
 					<div className='flex flex-col gap-y-1'>
-						<span>Посилання на фото</span>
+						<span>{t('forms.createProduct.fields.link')}</span>
 						<Controller
 							name='image'
 							control={control}
@@ -90,7 +92,7 @@ export const ModalProduct = (props: ModalProductProps) => {
 					</div>
 				</div>
 				<Button type='primary' className='mt-5 self-center' htmlType='submit'>
-					{labelBtn}
+					{labelButton || 'Submit'}
 				</Button>
 			</form>
 		</Modal>

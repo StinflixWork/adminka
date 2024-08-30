@@ -1,3 +1,5 @@
+import { LazyMotion, domAnimation } from 'framer-motion'
+
 import { ThemeProvider } from '@app/providers/themeProvider'
 import { RootRouter } from '@app/router'
 
@@ -29,9 +31,11 @@ export const App = () => {
 
 	return (
 		<ThemeProvider>
-			<MainLayout>
-				<RootRouter />
-			</MainLayout>
+			<LazyMotion features={domAnimation}>
+				<MainLayout>
+					<RootRouter />
+				</MainLayout>
+			</LazyMotion>
 		</ThemeProvider>
 	)
 }

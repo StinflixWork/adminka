@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
 import { Button } from 'antd'
@@ -13,6 +14,7 @@ import { ErrorApiResponse } from '@shared/types/common.ts'
 export const CreateProductForm = () => {
 	const [createProduct, { isSuccess, data, error, isError }] = useCreateProductMutation()
 	const [isModalOpen, setIsModalOpen] = useState(false)
+	const { t } = useTranslation()
 
 	const handleModalOpen = () => setIsModalOpen(true)
 	const handleModalClose = () => setIsModalOpen(false)
@@ -35,10 +37,10 @@ export const CreateProductForm = () => {
 				handleSubmitValues={onSubmit}
 				isOpen={isModalOpen}
 				handleClose={handleModalClose}
-				labelBtn='Створити'
+				labelButton={t('forms.createProduct.submitBtn')}
 			/>
 			<Button type='primary' onClick={handleModalOpen}>
-				Додати товар
+				{t('buttons.modalCreateProduct')}
 			</Button>
 		</div>
 	)

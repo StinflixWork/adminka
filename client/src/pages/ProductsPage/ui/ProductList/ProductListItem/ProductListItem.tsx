@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { _ } from 'react-hook-form/dist/__typetest__/__fixtures__'
-import { FaRegStar, FaStar } from 'react-icons/fa'
-import { MdDelete, MdModeEdit } from 'react-icons/md'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
+
+import cn from 'classnames'
+import { Pencil, Star, Trash2 } from 'lucide-react'
 
 import { ModalProduct } from '@widgets/ModalProduct'
 
@@ -23,6 +24,7 @@ export const ProductListItem = ({ product }: ProductProps) => {
 	const [deleteProduct, { data, isSuccess, isError }] = useDeleteProductMutation()
 	const [toggleFavourites] = useToggleFavouritesMutation()
 	const [editProduct] = useEditProductMutation()
+	const { t } = useTranslation()
 
 	const handleModalClose = () => setIsModalOpen(false)
 	const handleModalOpen = () => setIsModalOpen(true)
@@ -51,7 +53,7 @@ export const ProductListItem = ({ product }: ProductProps) => {
 				handleClose={handleModalClose}
 				isOpen={isModalOpen}
 				initialValues={product}
-				labelBtn='Оновити'
+				labelButton={t('buttons.modalEditProduct')}
 			/>
 			<div className='w-full max-h-[180px] h-full'>
 				<img src={image} alt='Product' className='w-full h-full object-cover' />
@@ -64,20 +66,13 @@ export const ProductListItem = ({ product }: ProductProps) => {
 				</div>
 				<div className='flex items-center justify-around mt-5 border-t border-solid border-gray-200 pt-4'>
 					<button onClick={handleModalOpen}>
-						<MdModeEdit size={26} className='fill-gray-400 hover:fill-gray-300 transition-colors' />
+						<Pencil className='text-gray-400' />
 					</button>
 					<button onClick={handleFavourites}>
-						{isFavourite ? (
-							<FaStar size={26} className='fill-gray-400 hover:fill-gray-300 transition-colors' />
-						) : (
-							<FaRegStar
-								size={26}
-								className='fill-gray-400 hover:fill-gray-300 transition-colors'
-							/>
-						)}
+						<Star className={cn('text-gray-400', isFavourite && 'fill-gray-400')} />
 					</button>
 					<button onClick={handleDelete}>
-						<MdDelete size={26} className='fill-gray-400 hover:fill-gray-300 transition-colors' />
+						<Trash2 className='text-gray-400' />
 					</button>
 				</div>
 			</div>
