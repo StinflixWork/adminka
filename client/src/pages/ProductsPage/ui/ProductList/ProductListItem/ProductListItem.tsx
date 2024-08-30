@@ -66,13 +66,18 @@ export const ProductListItem = ({ product }: ProductProps) => {
 				</div>
 				<div className='flex items-center justify-around mt-5 border-t border-solid border-gray-200 pt-4'>
 					<button onClick={handleModalOpen}>
-						<Pencil className='text-gray-400' />
+						<Pencil className='text-gray-400 hover:fill-gray-400 transition-colors' />
 					</button>
 					<button onClick={handleFavourites}>
-						<Star className={cn('text-gray-400', isFavourite && 'fill-gray-400')} />
+						<Star
+							className={cn(
+								'text-gray-400 hover:fill-gray-400 transition-colors',
+								isFavourite && 'fill-gray-400'
+							)}
+						/>
 					</button>
 					<button onClick={handleDelete}>
-						<Trash2 className='text-gray-400' />
+						<Trash2 className='text-gray-400 hover:fill-gray-400 transition-colors' />
 					</button>
 				</div>
 			</div>

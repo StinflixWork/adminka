@@ -13,6 +13,8 @@ import { Loader } from '@shared/ui/Loader'
 export const App = () => {
 	const { loading, isLoading, isAuth } = useAuth()
 
+	let Layout = isAuth ? MainLayout : BasicLayout
+
 	if (loading || isLoading) {
 		return (
 			<div className='h-full grid place-items-center bg-primary-bg'>
@@ -21,20 +23,12 @@ export const App = () => {
 		)
 	}
 
-	if (!isAuth) {
-		return (
-			<BasicLayout>
-				<RootRouter />
-			</BasicLayout>
-		)
-	}
-
 	return (
 		<ThemeProvider>
 			<LazyMotion features={domAnimation}>
-				<MainLayout>
+				<Layout>
 					<RootRouter />
-				</MainLayout>
+				</Layout>
 			</LazyMotion>
 		</ThemeProvider>
 	)
