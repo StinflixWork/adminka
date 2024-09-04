@@ -22,4 +22,6 @@ export const LogoutPage = () => {
 			.then(() => navigate('/auth'))
 			.catch(e => console.error(e))
 	}, [])
+
+	return <></>
 }
