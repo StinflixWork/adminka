@@ -17,16 +17,16 @@ export const AuthPage = () => {
 			</div>
 			<div className='flex flex-col w-[450px] px-5 py-8'>
 				{showRegister ? <RegisterForm /> : <LoginForm />}
-				<div className='text-center'>
-					<h5 className='inline-flex gap-x-2 font-semibold mt-3 dark:text-white'>
+				<div className='inline-flex items-center justify-center gap-x-1'>
+					<h5 className='inline-flex gap-x-2 font-semibold dark:text-white'>
 						{!showRegister ? t('forms.authLogin.text') : t('forms.authRegister.text')}
-						<button
-							onClick={() => setShowRegister(!showRegister)}
-							className='font-normal cursor-pointer text-blue-600 hover:underline'
-						>
-							{!showRegister ? t('forms.authLogin.link') : t('forms.authRegister.link')}
-						</button>
 					</h5>
+					<button
+						onClick={() => setShowRegister(!showRegister)}
+						className='font-normal cursor-pointer text-blue-600 hover:underline'
+					>
+						{!showRegister ? t('forms.authLogin.link') : t('forms.authRegister.link')}
+					</button>
 				</div>
 			</div>
 		</section>
