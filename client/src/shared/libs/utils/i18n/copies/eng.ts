@@ -26,6 +26,29 @@ export const ENG_TRANSLATE = {
 				link: 'Link to the photo'
 			},
 			submitBtn: 'Create'
+		},
+		authLogin: {
+			label: 'Login',
+			email: 'Email',
+			password: 'Password',
+			button: 'Login',
+			text: `Don't have an account?`,
+			link: 'Sign Up'
+		},
+		authRegister: {
+			label: 'Registration',
+			email: 'Email',
+			password: 'Password',
+			button: 'Register',
+			text: 'Already have an account?',
+			link: 'Sign In'
+		}
+	},
+	toasts: {
+		auth: {
+			loginSuccess: 'Login successfully',
+			registerSuccess: 'Register successfully',
+			validationError: 'Please complete all fields'
 		}
 	}
 }

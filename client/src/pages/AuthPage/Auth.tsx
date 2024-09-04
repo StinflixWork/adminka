@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -22,6 +23,7 @@ export const AuthPage = () => {
 	const [showRegister, setShowRegister] = useState(false)
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
+	const { t } = useTranslation()
 
 	const [
 		login,
@@ -42,7 +44,7 @@ export const AuthPage = () => {
 		if (formValue.email && formValue.password) {
 			await login(formValue)
 		} else {
-			toast.error('Please complete all fields')
+			toast.error(t('toasts.auth.validationError'))
 		}
 	}
 
@@ -50,7 +52,7 @@ export const AuthPage = () => {
 		if (formValue.email && formValue.password) {
 			await registration(formValue)
 		} else {
-			toast.error('Please complete all fields')
+			toast.error(t('toasts.auth.validationError'))
 		}
 	}
 
@@ -61,14 +63,14 @@ export const AuthPage = () => {
 
 	useEffect(() => {
 		if (isLoginSuccess) {
-			toast.success('Login successfully')
+			toast.success(t('toasts.auth.loginSuccess'))
 			dispatch(setUser({ user: loginData.user, isAuth: true }))
 			LocalStorageService.setAccessToken(loginData.accessToken)
 			navigate('/dashboard')
 		}
 
 		if (isRegistrationSuccess) {
-			toast.success('Registration successfully')
+			toast.success(t('toasts.auth.registerSuccess'))
 			dispatch(setUser({ user: registrationData.user, isAuth: true }))
 			LocalStorageService.setAccessToken(registrationData.accessToken)
 			navigate('/dashboard')
@@ -82,19 +84,19 @@ export const AuthPage = () => {
 	}, [isLoginError, isRegistrationError])
 
 	return (
-		<section className='flex bg-white rounded-xl shadow-xl'>
+		<section className='flex bg-white dark:bg-dark rounded-xl shadow-xl'>
 			<div className='h-screen flex-auto'>
 				<img src={BoatImage} alt='Boat' className='w-full h-full object-cover object-center' />
 			</div>
 			<div className='flex flex-col w-[450px] px-5 py-8'>
 				<div className='flex-auto flex flex-col gap-y-3'>
-					<h2 className='text-center text-3xl font-semibold mb-10'>
-						{!showRegister ? 'Login' : 'Register'}
+					<h2 className='text-center text-3xl font-semibold mb-10 dark:text-white'>
+						{!showRegister ? t('forms.authLogin.label') : t('forms.authRegister.label')}
 					</h2>
 					<div className='flex flex-col gap-y-3'>
 						<Input
 							size='large'
-							placeholder='Email'
+							placeholder={t('forms.authLogin.email')}
 							prefix={<Mail />}
 							name='email'
 							value={formValue.email}
@@ -102,7 +104,7 @@ export const AuthPage = () => {
 						/>
 						<Input.Password
 							size='large'
-							placeholder='Password'
+							placeholder={t('forms.authLogin.password')}
 							prefix={<RectangleEllipsis />}
 							name='password'
 							value={formValue.password}
@@ -112,23 +114,23 @@ export const AuthPage = () => {
 					<div className='self-center'>
 						{!showRegister ? (
 							<Button type='primary' size='large' onClick={handleLogin}>
-								Login
+								{t('forms.authLogin.button')}
 							</Button>
 						) : (
 							<Button type='primary' size='large' onClick={handleRegister}>
-								Register
+								{t('forms.authRegister.button')}
 							</Button>
 						)}
 					</div>
 				</div>
 				<div className='text-center'>
-					<h5 className='inline-flex gap-x-2 font-semibold mt-3'>
-						{!showRegister ? "Don't have an account?" : 'Already have an account?'}
+					<h5 className='inline-flex gap-x-2 font-semibold mt-3 dark:text-white'>
+						{!showRegister ? t('forms.authLogin.text') : t('forms.authRegister.text')}
 						<span
 							onClick={() => setShowRegister(!showRegister)}
 							className='font-normal cursor-pointer text-blue-600 hover:underline'
 						>
-							{!showRegister ? 'Sign Up' : 'Sign In'}
+							{!showRegister ? t('forms.authLogin.link') : t('forms.authRegister.link')}
 						</span>
 					</h5>
 				</div>

@@ -26,6 +26,29 @@ export const UKR_TRANSLATE = {
 				link: 'Посилання на фото'
 			},
 			submitBtn: 'Створити'
+		},
+		authLogin: {
+			label: 'Логін',
+			email: 'Електронна пошта',
+			password: 'Пароль',
+			button: 'Увійти',
+			text: 'Не маєте облікового запису?',
+			link: 'Зареєструватися'
+		},
+		authRegister: {
+			label: 'Реєстрація',
+			email: 'Електронна пошта',
+			password: 'Password',
+			button: 'Пароль',
+			text: 'Вже маєте обліковий запис?',
+			link: 'Увійти'
+		}
+	},
+	toasts: {
+		auth: {
+			loginSuccess: 'Успішний вхід в систему',
+			registerSuccess: 'Успішна реєстрація',
+			validationError: 'Будь ласка, заповніть усі поля'
 		}
 	}
 }
