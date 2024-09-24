@@ -1,4 +1,4 @@
-import { ChartColumnBig, ClipboardList, LucideIcon, Truck } from 'lucide-react'
+import { ChartColumnBig, ClipboardList, LayoutDashboard, LucideIcon, Truck } from 'lucide-react'
 
 export interface IMenu {
 	link: string
@@ -7,6 +7,11 @@ export interface IMenu {
 }
 
 export const MENU: IMenu[] = [
+	{
+		link: '/dashboard',
+		icon: LayoutDashboard,
+		langKey: 'dashboard'
+	},
 	{
 		link: '/products',
 		icon: ClipboardList,

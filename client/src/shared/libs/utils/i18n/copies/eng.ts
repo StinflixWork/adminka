@@ -12,6 +12,7 @@ export const ENG_TRANSLATE = {
 		modalEditProduct: 'Save'
 	},
 	menu: {
+		dashboard: 'Dashboard',
 		products: 'Products',
 		suppliers: 'Suppliers',
 		analytics: 'Analytics'

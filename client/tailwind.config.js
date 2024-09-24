@@ -10,7 +10,9 @@ export default {
         "dark": "#332941",
         "dark-blue": "#3B3486",
         "purple": "#864AF9",
-        "light-yellow": "#FFE9B1"
+        "light-yellow": "#FFE9B1",
+        "processed": "#ffb703",
+        "delivered": "#57cc99"
       },
       boxShadow: {
         "medium": "4px 0px 10px -4px rgba(0,0,0,0.1)"

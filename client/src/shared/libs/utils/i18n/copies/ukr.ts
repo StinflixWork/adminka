@@ -12,6 +12,7 @@ export const UKR_TRANSLATE = {
 		modalEditProduct: 'Зберегти'
 	},
 	menu: {
+		dashboard: 'Панель керування',
 		products: 'Продукти',
 		suppliers: 'Постачальники',
 		analytics: 'Аналітика'

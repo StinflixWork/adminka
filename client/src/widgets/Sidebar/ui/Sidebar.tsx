@@ -44,7 +44,13 @@ export const Sidebar = () => {
 				))}
 			</nav>
 			<div className='flex flex-col items-center justify-center gap-y-2'>
-				<Button danger icon={<LogOut size={18} />} iconPosition='end' onClick={handleLogout}>
+				<Button
+					danger
+					icon={<LogOut size={18} />}
+					iconPosition='end'
+					onClick={handleLogout}
+					type={isCollapsed ? 'text' : 'default'}
+				>
 					{isCollapsed || t('buttons.logout')}
 				</Button>
 			</div>
