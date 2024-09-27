@@ -1,82 +1,56 @@
 import { useState } from 'react'
 
 import {
+	ColumnFiltersState,
+	ColumnOrderState,
+	RowData,
 	getCoreRowModel,
 	getFilteredRowModel,
 	getPaginationRowModel,
 	getSortedRowModel,
 	useReactTable
 } from '@tanstack/react-table'
-import { ChevronFirst, ChevronLast, ChevronLeft, ChevronRight, RotateCcw } from 'lucide-react'
 
-import { BaseTable } from '@shared/ui/Table/BaseTable.tsx'
+import { columns } from '@pages/SuppliersPage/constants/columns.tsx'
+import { ISuppliers, SUPPLIERS_DATA } from '@pages/SuppliersPage/constants/suppliersData.ts'
+import { SuppliersFilter } from '@pages/SuppliersPage/ui/SuppliersTable/Filters'
+import { SuppliersPagination } from '@pages/SuppliersPage/ui/SuppliersTable/Pagination'
 
-import { columns } from '../../constants/columns.tsx'
-import { ISuppliers, SUPPLIERS_DATA } from '../../constants/suppliersData.ts'
+import { BaseTable } from '@shared/ui/Table'
 
-const fallbackData: any[] = []
+declare module '@tanstack/react-table' {
+	interface ColumnMeta<TData extends RowData, TValue> {
+		filterVariant?: 'text' | 'range' | 'select'
+	}
+}
 
 export const SuppliersTable = () => {
-	const [rowSelection, setRowSelection] = useState({})
+	const [columnVisibility, setColumnVisibility] = useState({})
+	const [columnOrder, setColumnOrder] = useState<ColumnOrderState>([])
+	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+
 	const table = useReactTable({
+		data: SUPPLIERS_DATA ?? [],
 		columns,
-		data: SUPPLIERS_DATA ?? fallbackData,
 		state: {
-			rowSelection
+			columnVisibility,
+			columnOrder,
+			columnFilters
 		},
-		enableRowSelection: true,
-		onRowSelectionChange: setRowSelection,
+		onColumnVisibilityChange: setColumnVisibility,
+		onColumnOrderChange: setColumnOrder,
+		onColumnFiltersChange: setColumnFilters,
 		getCoreRowModel: getCoreRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
-		getSortedRowModel: getSortedRowModel(),
-		initialState: {
-			pagination: {
-				pageIndex: 0,
-				pageSize: 5
-			}
-		}
+		getSortedRowModel: getSortedRowModel()
 	})
 
 	return (
-		<div className='relative overflow-x-auto shadow-md rounded-lg'>
+		<div className='flex flex-col gap-y-2'>
+			<SuppliersFilter table={table} />
 			<BaseTable<ISuppliers> table={table} />
-			<div className='px-5 py-1.5 flex items-center gap-x-8'>
-				<button onClick={() => table.resetPagination()}>
-					<RotateCcw size={18} />
-				</button>
-				<select
-					value={table.getState().pagination.pageSize}
-					onChange={e => table.setPageSize(Number(e.target.value))}
-				>
-					{[5, 10, 15, 20].map(pageSize => (
-						<option value={pageSize} key={pageSize}>
-							{pageSize}
-						</option>
-					))}
-				</select>
-				<div className='flex items-center gap-x-5'>
-					<div className='flex items-center'>
-						<button onClick={() => table.firstPage()} disabled={!table.getCanPreviousPage()}>
-							<ChevronFirst />
-						</button>
-						<button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-							<ChevronLeft />
-						</button>
-					</div>
-					<span>
-						{table.getState().pagination.pageIndex + 1} / {table.getPageCount()}
-					</span>
-					<div className='flex items-center'>
-						<button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-							<ChevronRight />
-						</button>
-						<button onClick={() => table.lastPage()} disabled={!table.getCanNextPage()}>
-							<ChevronLast />
-						</button>
-					</div>
-				</div>
-			</div>
+			<SuppliersPagination table={table} />
 		</div>
 	)
 }
