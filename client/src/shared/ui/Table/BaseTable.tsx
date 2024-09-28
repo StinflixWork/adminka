@@ -12,17 +12,17 @@ export const BaseTable = <TData,>({ table }: BaseTableProps<TData>) => {
 	const { getHeaderGroups, getRowModel } = table
 
 	return (
-		<table>
-			<thead>
+		<table className='w-full text-sm text-left text-gray-500 dark:text-gray-400'>
+			<thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
 				{getHeaderGroups().map(headerGroup => (
-					<tr key={headerGroup.id} className='bg-neutral-300'>
+					<tr key={headerGroup.id}>
 						{headerGroup.headers.map(header => (
-							<th key={header.id} colSpan={header.colSpan} className='text-center px-4 py-2'>
+							<th key={header.id} colSpan={header.colSpan} className='px-6 py-3'>
 								{header.isPlaceholder ? null : (
 									<div
 										className={cn(
 											header.column.getCanSort() && 'cursor-pointer select-none',
-											'flex items-center justify-center gap-x-2'
+											'flex items-center gap-x-2'
 										)}
 										onClick={header.column.getToggleSortingHandler()}
 									>
@@ -40,12 +40,12 @@ export const BaseTable = <TData,>({ table }: BaseTableProps<TData>) => {
 			</thead>
 			<tbody>
 				{getRowModel().rows.map(row => (
-					<tr key={row.id} className='bg-neutral-200'>
+					<tr
+						key={row.id}
+						className='odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700'
+					>
 						{row.getVisibleCells().map(cell => (
-							<td
-								key={cell.id}
-								className='text-center px-4 py-2 border border-solid border-gray-700'
-							>
+							<td key={cell.id} className='px-6 py-4'>
 								{flexRender(cell.column.columnDef.cell, cell.getContext())}
 							</td>
 						))}

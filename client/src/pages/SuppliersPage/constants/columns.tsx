@@ -1,8 +1,26 @@
 import { ColumnDef } from '@tanstack/react-table'
+import { Checkbox } from 'antd'
 
 import { ISuppliers } from './suppliersData.ts'
 
 export const columns: ColumnDef<ISuppliers>[] = [
+	{
+		id: 'select',
+		header: ({ table }) => (
+			<Checkbox
+				checked={table.getIsAllRowsSelected()}
+				indeterminate={table.getIsSomeRowsSelected()}
+				onChange={table.getToggleAllRowsSelectedHandler()}
+			/>
+		),
+		cell: ({ row }) => (
+			<Checkbox
+				checked={row.getIsSelected()}
+				disabled={!row.getCanSelect()}
+				onChange={row.getToggleSelectedHandler()}
+			/>
+		)
+	},
 	{
 		header: 'Supplier',
 		accessorKey: 'supplier',

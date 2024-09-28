@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker/locale/en'
 
 const createRandomSupplier = () => {
 	return {
+		id: faker.number.int(),
 		supplier: faker.person.fullName(),
 		product: faker.commerce.productName(),
 		quantity: faker.number.int({ min: 80, max: 450 }),

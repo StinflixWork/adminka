@@ -4,6 +4,7 @@ import {
 	ColumnFiltersState,
 	ColumnOrderState,
 	RowData,
+	RowSelectionState,
 	getCoreRowModel,
 	getFilteredRowModel,
 	getPaginationRowModel,
@@ -25,21 +26,25 @@ declare module '@tanstack/react-table' {
 }
 
 export const SuppliersTable = () => {
+	const [suppliers, setSuppliers] = useState(() => SUPPLIERS_DATA)
 	const [columnVisibility, setColumnVisibility] = useState({})
 	const [columnOrder, setColumnOrder] = useState<ColumnOrderState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+	const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
 
 	const table = useReactTable({
-		data: SUPPLIERS_DATA ?? [],
+		data: suppliers ?? [],
 		columns,
 		state: {
 			columnVisibility,
 			columnOrder,
-			columnFilters
+			columnFilters,
+			rowSelection
 		},
 		onColumnVisibilityChange: setColumnVisibility,
 		onColumnOrderChange: setColumnOrder,
 		onColumnFiltersChange: setColumnFilters,
+		onRowSelectionChange: setRowSelection,
 		getCoreRowModel: getCoreRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
@@ -48,8 +53,10 @@ export const SuppliersTable = () => {
 
 	return (
 		<div className='flex flex-col gap-y-2'>
-			<SuppliersFilter table={table} />
-			<BaseTable<ISuppliers> table={table} />
+			<SuppliersFilter table={table} suppliers={suppliers} setSuppliers={setSuppliers} />
+			<div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
+				<BaseTable<ISuppliers> table={table} />
+			</div>
 			<SuppliersPagination table={table} />
 		</div>
 	)

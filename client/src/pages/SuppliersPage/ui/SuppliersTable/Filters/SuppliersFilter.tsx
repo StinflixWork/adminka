@@ -1,15 +1,18 @@
 import { useState } from 'react'
 
-import { Table } from '@tanstack/react-table'
+import { Row, Table } from '@tanstack/react-table'
 import { Button, Checkbox, Dropdown } from 'antd'
 
+import { ISuppliers } from '@pages/SuppliersPage/constants/suppliersData.ts'
 import { FilterItem } from '@pages/SuppliersPage/ui/SuppliersTable/Filters/FilterItem'
 
 interface SuppliersFilterProps {
 	table: Table<any>
+	suppliers: ISuppliers[]
+	setSuppliers: (newSuppliers: ISuppliers[]) => void
 }
 
-export const SuppliersFilter = ({ table }: SuppliersFilterProps) => {
+export const SuppliersFilter = ({ table, suppliers, setSuppliers }: SuppliersFilterProps) => {
 	const [dropdownShow, setDropdownShow] = useState(false)
 
 	const items = [
@@ -44,6 +47,16 @@ export const SuppliersFilter = ({ table }: SuppliersFilterProps) => {
 		}
 	}
 
+	// temp feature that will be changed to a server feature with endpoints
+	const deleteRowHandler = () => {
+		const selectedRows = table.getSelectedRowModel().rows
+		const selectedRowIds = new Set(selectedRows.map((row: Row<ISuppliers>) => row.original.id))
+		const newSuppliers = suppliers.filter(item => !selectedRowIds.has(item.id))
+
+		setSuppliers(newSuppliers)
+		table.resetRowSelection()
+	}
+
 	return (
 		<div className='mb-2 flex gap-x-4'>
 			<div>
@@ -70,6 +83,15 @@ export const SuppliersFilter = ({ table }: SuppliersFilterProps) => {
 								)
 						)
 					)}
+			</div>
+			<div>
+				<Button
+					type='primary'
+					onClick={deleteRowHandler}
+					disabled={!table.getSelectedRowModel().rows.length}
+				>
+					Delete row
+				</Button>
 			</div>
 		</div>
 	)

@@ -27,7 +27,6 @@ export const FilterItem = ({ column }: { column: Column<any, unknown> }) => {
 
 	if (filterVariant === 'text') {
 		const { Search } = Input
-		console.log(columnFilterValue)
 		return (
 			<div>
 				<Search placeholder='Search product...' onSearch={value => column.setFilterValue(value)} />

@@ -1,6 +1,7 @@
 import { getRandomSuppliers } from '../lib/getRandomSuppliers.ts'
 
 export interface ISuppliers {
+	id: number
 	supplier: string
 	product: string
 	quantity: number
@@ -11,4 +12,4 @@ export interface ISuppliers {
 type TypeOrderStatus = 'processed' | 'cancelled' | 'ordered'
 
 // fake data
-export const SUPPLIERS_DATA: ISuppliers[] = getRandomSuppliers(100)
+export const SUPPLIERS_DATA: ISuppliers[] = getRandomSuppliers(1000)
